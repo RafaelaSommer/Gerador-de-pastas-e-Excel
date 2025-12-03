@@ -1,0 +1,36 @@
+openpyxl
+Pillow
+tk
+
+✔ Explicação
+📌 Bibliotecas realmente necessárias:
+
+openpyxl
+Usada para criar e manipular arquivos Excel .xlsx.
+
+Pillow
+Usada para carregar e exibir imagens da logo (logo.png / logo.ico) nas interfaces gráficas.
+
+tk
+Inclui o tkinter, que é a biblioteca responsável pelas janelas e botões.
+
+No Windows ele já vem instalado junto com Python, mas deixar no requirements ajuda para ambientes virtuais e instalações Linux.
+
+📌 Bibliotecas que NÃO precisam entrar
+
+Você não precisa colocar:
+
+tkinter
+
+os
+
+tkinter.ttk
+
+messagebox
+
+simpledialog
+
+filedialog
+
+load_workbook
+…porque tudo isso faz parte da biblioteca padrão do Python.
