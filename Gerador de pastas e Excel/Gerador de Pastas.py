@@ -41,13 +41,18 @@ root.title("Gerador de Pastas")
 root.configure(bg=BG)
 root.option_add("*Font", default_font)
 
-# Tentar ícone (não crítico)
-try:
-    caminho_ico = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.ico")
-    if os.path.exists(caminho_ico):
-        root.iconbitmap(caminho_ico)
-except Exception:
-    pass
+# =========================
+# Logo desativada
+# =========================
+# try:
+#     caminho_logo = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
+#     if os.path.exists(caminho_logo):
+#         imagem_logo = Image.open(caminho_logo).resize((64, 64))
+#         self.logo_tk = ImageTk.PhotoImage(imagem_logo)
+#         ttk.Label(top, image=self.logo_tk, style="Card.TLabel").pack(side="left", padx=(0, 10))
+# except:
+#     pass
+
 
 # Centraliza janela
 w, h = 1000, 700

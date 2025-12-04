@@ -119,7 +119,7 @@ def gerar_excel():
     caminho_arquivo = os.path.join(desktop, nome_arquivo)
 
     if os.path.exists(caminho_arquivo):
-        if not messagebox.askyesno("Arquivo existe", "Deseja substiruir o arquivo?"):
+        if not messagebox.askyesno("Arquivo existe", "Deseja substituir o arquivo?"):
             return
 
     try:
