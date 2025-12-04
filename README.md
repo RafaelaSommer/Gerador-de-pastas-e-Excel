@@ -93,7 +93,5 @@ Tema claro e escuro selecionável pelo usuário
 
 Idioma configurável
 
-👨‍💻 Autor
-
 Projeto desenvolvido em Python utilizando Tkinter, Pillow e OpenPyXL.
 Sinta-se à vontade para modificar, distribuir e melhorar.
