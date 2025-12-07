@@ -4,7 +4,7 @@ from tkinter import ttk, messagebox, simpledialog, filedialog, font
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import PatternFill, Alignment
 from openpyxl.utils import get_column_letter
-from PIL import Image, ImageTk  # Para carregar a logo
+from PIL import Image, ImageTk  # Mantido para não quebrar caso queira ativar no futuro
 
 COLUMNS = {
     "Equipes": ["Equipe", "Realizado", "Não Realizado"],
@@ -42,14 +42,14 @@ root.configure(bg=BG)
 root.option_add("*Font", default_font)
 
 # =========================
-# Logo desativada
+# Logo DESATIVADA completamente
 # =========================
 # try:
 #     caminho_logo = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
 #     if os.path.exists(caminho_logo):
 #         imagem_logo = Image.open(caminho_logo).resize((64, 64))
-#         self.logo_tk = ImageTk.PhotoImage(imagem_logo)
-#         ttk.Label(top, image=self.logo_tk, style="Card.TLabel").pack(side="left", padx=(0, 10))
+#         logo_tk = ImageTk.PhotoImage(imagem_logo)
+#         ttk.Label(root, image=logo_tk, style="Card.TLabel").pack()
 # except:
 #     pass
 
@@ -131,18 +131,21 @@ class GeradorPastas:
         fonte_texto = font.Font(family="Helvetica", size=10)
         fonte_botao = font.Font(family="Helvetica", size=11, weight="bold")
 
-        # Header com logo
+        # Header sem logo
         top = ttk.Frame(self.frame, style="Card.TFrame")
         top.pack(fill="x", pady=(0, 8))
 
-        try:
-            caminho_logo = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
-            if os.path.exists(caminho_logo):
-                imagem_logo = Image.open(caminho_logo).resize((64, 64))
-                self.logo_tk = ImageTk.PhotoImage(imagem_logo)
-                ttk.Label(top, image=self.logo_tk, style="Card.TLabel").pack(side="left", padx=(0, 10))
-        except:
-            pass
+        # =========================
+        # Logo DESATIVADA aqui também
+        # =========================
+        # try:
+        #     caminho_logo = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
+        #     if os.path.exists(caminho_logo):
+        #         imagem_logo = Image.open(caminho_logo).resize((64, 64))
+        #         self.logo_tk = ImageTk.PhotoImage(imagem_logo)
+        #         ttk.Label(top, image=self.logo_tk, style="Card.TLabel").pack(side="left", padx=(0, 10))
+        # except:
+        #     pass
 
         ttk.Label(top, text="Gerador de Pastas", style="Card.TLabel",
                   font=(default_font[0], 12, "bold")).pack(side="left")
@@ -248,4 +251,3 @@ if __name__ == "__main__":
               style="TLabel").pack(pady=6)
 
     root.mainloop()
-
