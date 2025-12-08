@@ -133,17 +133,14 @@ class GeradorPastas:
         top = ttk.Frame(self.frame, style="Card.TFrame")
         top.pack(fill="x", pady=(0, 8))
 
-        # =========================
-        # Logo DESATIVADA aqui também
-        # =========================
-        # try:
-        #     caminho_logo = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
-        #     if os.path.exists(caminho_logo):
-        #         imagem_logo = Image.open(caminho_logo).resize((64, 64))
-        #         self.logo_tk = ImageTk.PhotoImage(imagem_logo)
-        #         ttk.Label(top, image=self.logo_tk, style="Card.TLabel").pack(side="left", padx=(0, 10))
-        # except:
-        #     pass
+         try:
+            caminho_logo = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
+            if os.path.exists(caminho_logo):
+                imagem_logo = Image.open(caminho_logo).resize((64, 64))
+                self.logo_tk = ImageTk.PhotoImage(imagem_logo)
+                 ttk.Label(top, image=self.logo_tk, style="Card.TLabel").pack(side="left", padx=(0, 10))
+         except:
+            pass
 
         ttk.Label(top, text="Gerador de Pastas", style="Card.TLabel",
                   font=(default_font[0], 12, "bold")).pack(side="left")
