@@ -1,97 +1,122 @@
-# 📁 Gerador de Pastas & 📊 Gerador de Excel
+📁 Gerador de Pastas • 📊 Gerador de Excel • 🖼️ Conversor ICO
+Ferramentas desktop em Python para automação e produtividade
 
-Este projeto reúne duas ferramentas desktop desenvolvidas em Python com interface gráfica para auxiliar na organização de arquivos e criação de planilhas personalizadas.
+Este projeto reúne três aplicativos desktop com interface gráfica (Tkinter), desenvolvidos para facilitar tarefas de organização, criação de planilhas e conversão de imagens em ícones .ico.
 
----
+🚀 Recursos Principais
+✔ Gerador de Pastas
 
-## 🚀 Recursos Principais
+Ferramenta para criação automática de estruturas de diretórios:
 
-### ✔ Gerador de Pastas
-- Criação automática de diretórios
-- Permite definir:
-  - Pasta base
-  - Pasta principal
-  - Lista de nomes
-  - Subpastas gerais
-  - Subpastas secundárias
-- Interface moderna em **dark mode**
+Define pasta base
 
-### ✔ Gerador de Excel
-- Cria planilhas `.xlsx` dinamicamente
-- Definição de número de colunas e linhas
-- Preenchimento direto na interface
-- Ajuste automático de largura das colunas
-- Salva o arquivo diretamente na **Área de Trabalho**
+Cria pasta principal
 
----
+Aceita lista de nomes (um por linha)
 
-## 📂 Estrutura Recomendada do Projeto
+Cria subpastas gerais e subpastas secundárias
 
+Interface moderna Dark Mode
+
+Funcionamento 100% offline
+
+✔ Gerador de Excel
+
+Gera planilhas Excel sem precisar abrir o Excel:
+
+Define colunas e linhas
+
+Preenchimento direto na interface
+
+Ajuste automático de largura
+
+Exporta .xlsx
+
+Salva diretamente na Área de Trabalho
+
+✔ Conversor ICO (conversor_ico.py)
+
+Converte qualquer imagem .png/.jpg/.jpeg em .ico:
+
+Interface simples e direta
+
+Seleção de imagem
+
+Suporte a múltiplos tamanhos
+
+Ideal para ícones de aplicações Tkinter
+
+📂 Estrutura Recomendada do Projeto
 📦 Projeto
 │
-│─ README.md ← (este arquivo)
-│─ requirements.txt
+├── README.md
 │
-└─ app/
-│─ Gerador de Pastas.py
-│─ Gerador Excel.py
-│─ logo.png (opcional)
-│─ logo.ico (opcional)
-│─ README.md (interno - explicação da pasta)
+└── Gerador de Pastas e Excel/
+    ├── requirements.txt   ← (fica aqui!)
+    │
+    ├── Gerador de Pastas.py
+    ├── Gerador Excel.py
+    ├── conversor_ico.py
+    │
+    ├── logo.png (opcional)
+    ├── logo.ico (opcional)
+    │
+    └── README.md (explicação interna da pasta)
 
----
+🛠️ Dependências
 
-## 🛠️ Dependências
+O arquivo requirements.txt está dentro da pasta “Gerador de Pastas e Excel”.
 
-As bibliotecas necessárias estão listadas em **requirements.txt**.  
-Para instalar:
+Instale executando:
 
-```bash
-pip install -r requirements.txt
-
----
+pip install -r "Gerador de Pastas e Excel/requirements.txt"
 
 Bibliotecas utilizadas:
 
-tk / tkinter
+tkinter
 
 Pillow
 
 openpyxl
 
-▶ Execução
+os / shutil
 
-Entre na pasta app:
+▶ Como Executar
 
-cd app
+Entre na pasta onde os scripts estão:
 
+cd "Gerador de Pastas e Excel"
 
-Execute o programa desejado:
-
+🗂️ Gerador de Pastas
 python "Gerador de Pastas.py"
 
-
-ou
-
+📊 Gerador de Excel
 python "Gerador Excel.py"
+
+🖼️ Conversor ICO
+python "conversor_ico.py"
 
 📌 Observações
 
-Os arquivos logo.ico e logo.png são opcionais. Caso existam, o programa usará automaticamente na interface.
+logo.png e logo.ico são opcionais.
+Se existirem, serão carregados automaticamente.
 
-Os dois scripts possuem janela gráfica e podem ser executados em Windows sem terminal aberto.
+Tudo funciona sem internet.
 
-Interface 100% offline — não depende da internet.
+Projetos feitos em Python 3.8+.
 
-📦 Futuras Melhorias (sugestões)
+Softwares executam por janelas TK, sem necessidade de terminal após iniciados.
 
-Gerar executável .exe com PyInstaller
+📦 Melhorias Futuras (sugestões)
 
-Salvar e carregar modelos de planilha
+Criar .exe com PyInstaller
 
-Tema claro e escuro selecionável pelo usuário
+Interface com ttkbootstrap
 
-Idioma configurável
+Tema claro/escuro configurável
 
-Projeto desenvolvido em Python utilizando Tkinter, Pillow e OpenPyXL.
-Sinta-se à vontade para modificar, distribuir e melhorar.
+Idioma selecionável
+
+Salvar modelos de planilhas e estruturas de pastas
+
+Criar instalador para Windows
