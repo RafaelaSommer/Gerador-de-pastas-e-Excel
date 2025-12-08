@@ -1,0 +1,4 @@
+# Bibliotecas necessárias para o Gerador de Excel com Tkinter
+openpyxl
+Pillow
+tk
