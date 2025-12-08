@@ -42,22 +42,15 @@ Converta imagens comuns para ícones `.ico`:
 
 ## 📂 Estrutura Recomendada
 
-📦 Projeto
-│
-├── README.md
-│
-└── Gerador de Pastas e Excel/
-├── requirements.txt
-│
-├── Gerador de Pastas.py
-├── Gerador Excel.py
-├── conversor_ico.py
-│
-├── logo.png (opcional)
-├── logo.ico (opcional)
-│
-└── README.md
-
+- **README.md** — documentação principal
+- **Gerador de Pastas e Excel/**
+  - **requirements.txt**
+  - **Gerador de Pastas.py**
+  - **Gerador Excel.py**
+  - **conversor_ico.py**
+  - **logo.png** *(opcional)*
+  - **logo.ico** *(opcional)*
+  - **README.md** (documentação da pasta)
 
 ---
 
