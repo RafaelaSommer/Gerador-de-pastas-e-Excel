@@ -26,25 +26,25 @@ Gera planilhas Excel sem precisar abrir o Excel:
 
 Define colunas e linhas
 
-Preenchimento direto na interface
+Preenchimento direto na interface Tkinter
 
 Ajuste automático de largura
 
-Exporta .xlsx
+Exporta arquivo .xlsx
 
-Salva diretamente na Área de Trabalho
+Salva automaticamente na Área de Trabalho
 
 ✔ Conversor ICO (conversor_ico.py)
 
-Converte qualquer imagem .png/.jpg/.jpeg em .ico:
+Converte qualquer imagem .png, .jpg ou .jpeg em .ico:
 
 Interface simples e direta
 
-Seleção de imagem
+Seleção de imagem via Tkinter
 
-Suporte a múltiplos tamanhos
+Suporte a múltiplos tamanhos de ícone
 
-Ideal para ícones de aplicações Tkinter
+Ideal para projetos Tkinter que utilizam ícones .ico
 
 📂 Estrutura Recomendada do Projeto
 📦 Projeto
@@ -58,16 +58,16 @@ Ideal para ícones de aplicações Tkinter
     ├── Gerador Excel.py
     ├── conversor_ico.py
     │
-    ├── logo.png (opcional)
-    ├── logo.ico (opcional)
+    ├── logo.png   (opcional)
+    ├── logo.ico   (opcional)
     │
-    └── README.md (explicação interna da pasta)
+    └── README.md  (explicação interna da pasta)
 
 🛠️ Dependências
 
 O arquivo requirements.txt está dentro da pasta “Gerador de Pastas e Excel”.
 
-Instale executando:
+Para instalar:
 
 pip install -r "Gerador de Pastas e Excel/requirements.txt"
 
@@ -83,7 +83,7 @@ os / shutil
 
 ▶ Como Executar
 
-Entre na pasta onde os scripts estão:
+Acesse a pasta onde os scripts estão:
 
 cd "Gerador de Pastas e Excel"
 
@@ -98,25 +98,27 @@ python "conversor_ico.py"
 
 📌 Observações
 
-logo.png e logo.ico são opcionais.
-Se existirem, serão carregados automaticamente.
+Os arquivos logo.png e logo.ico são opcionais.
+Caso existam, são carregados automaticamente na interface.
 
-Tudo funciona sem internet.
+Todos os programas funcionam sem internet.
 
-Projetos feitos em Python 3.8+.
+Compatíveis com Python 3.8+.
 
-Softwares executam por janelas TK, sem necessidade de terminal após iniciados.
+As aplicações são janelas Tkinter — não é necessário usar o terminal após abrir.
 
 📦 Melhorias Futuras (sugestões)
 
-Criar .exe com PyInstaller
+Criar executáveis .exe com PyInstaller
 
-Interface com ttkbootstrap
+Interface modernizada com ttkbootstrap
 
 Tema claro/escuro configurável
 
-Idioma selecionável
+Múltiplos idiomas (PT/EN/ES)
 
-Salvar modelos de planilhas e estruturas de pastas
+Salvamento de modelos de pastas
 
-Criar instalador para Windows
+Salvamento de modelos de planilhas
+
+Criar instalador para Windows (.exe instalável)
