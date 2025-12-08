@@ -112,11 +112,14 @@ def gerar_excel():
         return
     nome_arquivo = nome_arquivo + ".xlsx"
 
-    desktop = os.path.join(os.path.expanduser("~"), "Desktop")
-    if not os.path.exists(desktop):
-        desktop = os.path.join(os.path.expanduser("~"), "Área de Trabalho")
-
-    caminho_arquivo = os.path.join(desktop, nome_arquivo)
+    # ----------------- AJUSTE PARA SALVAR NA ÁREA DE TRABALHO PÚBLICA ----------------- #
+    desktop_publico = os.path.join(os.environ.get("PUBLIC", "C:\\Users\\Public"), "Desktop")
+    if not os.path.exists(desktop_publico):
+        desktop_publico = os.path.join(os.environ.get("PUBLIC", "C:\\Users\\Public"), "Área de Trabalho")
+    if not os.path.exists(desktop_publico):
+        desktop_publico = os.path.expanduser("~")  # fallback para a pasta do usuário atual
+    caminho_arquivo = os.path.join(desktop_publico, nome_arquivo)
+    # -------------------------------------------------------------------------- #
 
     if os.path.exists(caminho_arquivo):
         if not messagebox.askyesno("Arquivo existe", "Deseja substituir o arquivo?"):
@@ -156,6 +159,7 @@ root.configure(bg=BG)
 centralizar_janela(root, 520, 360)
 root.resizable(True, True)
 
+# Logo opcional
 try:
     caminho_logo = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
     if os.path.exists(caminho_logo):

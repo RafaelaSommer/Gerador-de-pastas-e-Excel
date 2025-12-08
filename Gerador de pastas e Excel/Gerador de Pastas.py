@@ -52,7 +52,6 @@ except Exception as e:
     pass
 
 
-
 # Centraliza janela
 w, h = 1000, 700
 ws, hs = root.winfo_screenwidth(), root.winfo_screenheight()
