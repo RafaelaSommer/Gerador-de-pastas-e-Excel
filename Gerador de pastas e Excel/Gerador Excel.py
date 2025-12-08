@@ -112,12 +112,20 @@ def gerar_excel():
         return
     nome_arquivo = nome_arquivo + ".xlsx"
 
-    # ----------------- AJUSTE PARA SALVAR NA ÁREA DE TRABALHO PÚBLICA ----------------- #
+    # ----------------- AJUSTE PARA SALVAR NA ÁREA DE TRABALHO PÚBLICA OU USUÁRIO ----------------- #
+    # Tenta Desktop Público
     desktop_publico = os.path.join(os.environ.get("PUBLIC", "C:\\Users\\Public"), "Desktop")
     if not os.path.exists(desktop_publico):
         desktop_publico = os.path.join(os.environ.get("PUBLIC", "C:\\Users\\Public"), "Área de Trabalho")
-    if not os.path.exists(desktop_publico):
-        desktop_publico = os.path.expanduser("~")  # fallback para a pasta do usuário atual
+
+    # Se Desktop Público não existir ou não tiver permissão, usa Desktop do usuário atual
+    if not os.path.exists(desktop_publico) or not os.access(desktop_publico, os.W_OK):
+        home_usuario = os.path.expanduser("~")
+        desktop_usuario = os.path.join(home_usuario, "Desktop")
+        if not os.path.exists(desktop_usuario):
+            desktop_usuario = os.path.join(home_usuario, "Área de Trabalho")
+        desktop_publico = desktop_usuario
+
     caminho_arquivo = os.path.join(desktop_publico, nome_arquivo)
     # -------------------------------------------------------------------------- #
 
