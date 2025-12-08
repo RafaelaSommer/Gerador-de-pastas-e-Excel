@@ -1,20 +1,32 @@
-📦 Aplicações Python – Gerador de Pastas, Gerador de Excel & Conversor de Ícone
+# 📦 Aplicações Python – Gerador de Pastas • Gerador de Excel • Conversor de Ícone  
+### Automação fácil e rápida com interfaces Tkinter
 
-Este repositório contém três ferramentas Python com interface gráfica (Tkinter) desenvolvidas para automatizar tarefas comuns do dia a dia: criação de pastas, geração de planilhas Excel e conversão de imagens para ícones .ico.
+Este repositório reúne **três ferramentas Python com interface gráfica (Tkinter)** desenvolvidas para automatizar tarefas comuns do dia a dia:  
+📁 criação de pastas,  
+📊 geração de planilhas Excel e  
+🖼️ conversão de imagens para ícones `.ico`.
 
-As aplicações são simples, leves, funcionam em qualquer computador com Python instalado e foram projetadas para facilitar o fluxo de trabalho de usuários iniciantes ou avançados.
+As aplicações são **leves, intuitivas, funcionam 100% offline** e podem ser usadas por qualquer pessoa — desde iniciantes em Python até usuários avançados que precisam agilizar processos.
 
-🧩 Conteúdo da Pasta
-Arquivo	Função
-Gerador de Pastas.py	Cria automaticamente estruturas completas de diretórios em poucos cliques.
-Gerador Excel.py	Gera planilhas Excel personalizadas, com cabeçalhos e ajuste automático.
-conversor_ico.py	Converte qualquer imagem .png, .jpg etc. para arquivo .ico.
-logo.ico / logo.png (opcional)	Ícones usados na interface gráfica (Tkinter).
-⚙️ Como instalar e executar
-1️⃣ Instale as dependências
+---
 
-O arquivo requirements.txt está na pasta raiz do projeto. Execute:
+## 🧩 Conteúdo da Pasta
 
+| Arquivo | Função |
+|--------|--------|
+| **Gerador de Pastas.py** | Cria automaticamente estruturas completas de diretórios. |
+| **Gerador Excel.py** | Gera planilhas Excel com cabeçalhos e ajuste automático. |
+| **conversor_ico.py** | Converte imagens `.png`, `.jpg`, etc. para `.ico`. |
+| **logo.ico / logo.png** *(opcional)* | Ícones exibidos na interface Tkinter. |
+
+---
+
+## ⚙️ Instalação e Execução
+
+### 1️⃣ Instale as dependências  
+O arquivo `requirements.txt` está na pasta raiz.
+
+```bash
 pip install -r ../requirements.txt
 
 2️⃣ Rode o aplicativo desejado
@@ -29,36 +41,37 @@ python "conversor_ico.py"
 
 🖥️ Interfaces Gráficas (GUI)
 
-Todos os programas utilizam Tkinter, abrindo janelas intuitivas e fáceis de usar.
-Nenhum conhecimento de terminal é necessário após a execução.
-
-As aplicações funcionam com ou sem os arquivos de logo.
+✔ Todas as aplicações utilizam Tkinter
+✔ Janelas simples, diretas e intuitivas
+✔ Não é preciso usar o terminal após abrir
+✔ Funcionam com ou sem os logos opcionais
+✔ Totalmente offline
 
 🗂️ Gerador de Pastas – Como Funciona
 
-O Gerador de Pastas permite criar estruturas completas automaticamente.
+O Gerador de Pastas cria estruturas completas em poucos cliques.
 
 ✨ Funcionalidades:
 
-Seleção da pasta base onde tudo será criado
+Seleção da pasta base
 
-Criação de uma pasta principal com nome personalizado
+Criação da pasta principal
 
-Área para inserir vários nomes (um por linha)
+Campo para inserir múltiplos nomes (um por linha)
 
-Criação de subpastas padrão para cada nome
+Criação de subpastas padrão
 
 Subpastas secundárias opcionais
 
 Interface moderna em Dark Mode
 
-Avisos e validações automáticas
+Validações automáticas e avisos amigáveis
 
 🧠 Fluxo de uso:
 
-Escolha a pasta base onde tudo será criado
+Escolha a pasta base
 
-Digite o nome da pasta principal
+Insira o nome da pasta principal
 
 Adicione a lista de nomes (um por linha)
 
@@ -66,7 +79,7 @@ Informe as subpastas gerais e secundárias
 
 Clique em Gerar
 
-O programa cria automaticamente:
+A estrutura gerada será algo como:
 
 Pasta Principal/
     Nome 1/
@@ -79,73 +92,75 @@ Pasta Principal/
 
 📊 Gerador de Excel – Como Funciona
 
-O Gerador permite criar planilhas completas em poucos segundos.
+Crie planilhas completas sem abrir o Excel, diretamente via Tkinter.
 
 ✨ Funcionalidades:
 
-Número de linhas e colunas definidas pelo usuário
+Definição de número de linhas e colunas
 
-Preenchimento dos valores diretamente na interface Tkinter
+Preenchimento dos dados direto na interface
 
-Cabeçalhos na primeira linha são obrigatórios
+Cabeçalhos obrigatórios na primeira linha
 
 Ajuste automático da largura das colunas
 
-Exportação automática para .xlsx
+Exportação para .xlsx
 
-Arquivo salvo diretamente na Área de Trabalho
+Arquivo salvo automaticamente na Área de Trabalho
 
 🧠 Fluxo de uso:
 
 Defina o número de colunas e linhas
 
-Preencha os dados na interface
+Preencha os dados exibidos na janela
 
 Clique em Salvar Excel
 
-O arquivo é gerado automaticamente e salvo na sua área de trabalho
+O arquivo será criado automaticamente no desktop do usuário.
 
-🖼️ conversor_ico.py – Conversor de PNG/JPG para ICO
+🖼️ Conversor de Ícone – PNG/JPG para ICO
 
-Ferramenta simples e prática que converte qualquer imagem em ícone .ico.
+Ferramenta rápida para transformar imagens em ícones .ico.
 
 ✨ Funcionalidades:
 
-Seleção de arquivo .png, .jpg, .jpeg etc.
+Suporte a .png, .jpg, .jpeg e outros formatos
 
 Escolha do local de salvamento
 
-Conversão rápida via biblioteca Pillow
+Conversão instantânea usando Pillow
 
-Suporte a múltiplos tamanhos de ícone
+Vários tamanhos de ícone disponíveis
 
-Ideal para projetos Python com Tkinter
+Ideal para projetos Tkinter ou atalhos personalizados
 
 🧠 Fluxo de uso:
 
-Abra o programa
+Abra o aplicativo
 
 Clique em Selecionar Imagem
 
-Escolha onde salvar o .ico
+Escolha onde salvar
 
-Pronto! O arquivo será criado instantaneamente
+Pronto — o ícone é gerado na hora!
 
-📌 Observações importantes
+📌 Observações Importantes
 
-Todos os programas funcionam mesmo sem os arquivos logo.ico ou logo.png.
+As logos são opcionais — o programa funciona sem elas.
 
-O Gerador de Excel sempre salva o arquivo diretamente na Área de Trabalho.
+O Gerador de Excel sempre salva na Área de Trabalho.
 
 Recomendado usar Python 3.10+.
 
-🧪 Tecnologias utilizadas
+Funciona em qualquer sistema com Python instalado.
+
+🧪 Tecnologias Utilizadas
 
 Python 3.x
 
 Tkinter – interface gráfica
 
-Pillow – usada no conversor_ico.py
+Pillow – manipulação de imagens (conversor ICO)
 
 openpyxl – criação de arquivos Excel
 
@@ -153,15 +168,15 @@ os / shutil – manipulação de diretórios
 
 🤝 Suporte & Personalizações
 
-Se precisar de melhorias ou versões avançadas, posso criar:
+Posso criar versões personalizadas com:
 
-✔ Versão em .exe (compatível com Windows)
-✔ Salvamento e carregamento automático de configurações
-✔ Banco de dados para histórico
-✔ Interface moderna (Tkinter + ttkbootstrap)
-✔ Versão multilíngue
+✔ Arquivos .exe para Windows
+✔ Interface moderna com ttkbootstrap
 ✔ Tema claro/escuro
+✔ Histórico com banco de dados
+✔ Configurações salvas automaticamente
+✔ Versão multilíngue
 ✔ Recursos extras para Excel
-✔ Instalação automática (Setup Installer)
+✔ Instalador completo (.exe Installer)
 
-É só pedir! 😎🚀
+Se quiser evoluir este projeto, é só pedir! 😎🚀
