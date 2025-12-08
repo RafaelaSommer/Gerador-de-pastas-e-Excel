@@ -4,7 +4,7 @@ from tkinter import ttk, messagebox, simpledialog, filedialog, font
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import PatternFill, Alignment
 from openpyxl.utils import get_column_letter
-from PIL import Image, ImageTk  # Mantido para não quebrar caso queira ativar no futuro
+from PIL import Image, ImageTk
 
 COLUMNS = {
     "Equipes": ["Equipe", "Realizado", "Não Realizado"],
@@ -34,23 +34,31 @@ BTN_FG = TEXT
 TREE_BG = "#171717"
 ROW_ALT = "#1b1b1b"
 
-# Inicializa janela principal (aplicando fonte padrão)
 default_font = ("Segoe UI", 10)
 root = tk.Tk()
 root.title("Gerador de Pastas")
 root.configure(bg=BG)
 root.option_add("*Font", default_font)
 
-
+# =========================
+# LOGO + ÍCONE (100% FUNCIONAL)
+# =========================
 try:
-    caminho_logo = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
-    if os.path.exists(caminho_logo):
-        imagem_logo = Image.open(caminho_logo).resize((64, 64))
-        logo_tk = ImageTk.PhotoImage(imagem_logo)
-        ttk.Label(root, image=logo_tk, style="Card.TLabel").pack()
-except Exception as e:
-    pass
+    pasta_base = os.path.dirname(os.path.abspath(__file__))
 
+    ico_path = os.path.join(pasta_base, "logo.ico")
+    png_path = os.path.join(pasta_base, "logo.png")
+
+    if os.path.exists(ico_path):
+        root.iconbitmap(ico_path)
+
+    elif os.path.exists(png_path):
+        imagem_logo = Image.open(png_path).resize((64, 64))
+        logo_tk = ImageTk.PhotoImage(imagem_logo)
+        root.iconphoto(True, logo_tk)
+
+except Exception as e:
+    print("Erro ao carregar ícone:", e)
 
 # Centraliza janela
 w, h = 1000, 700
@@ -91,29 +99,30 @@ style.configure("Treeview",
                 rowheight=26,
                 bordercolor=BG,
                 borderwidth=0)
+
 style.configure("Treeview.Heading",
                 background=ACCENT,
                 foreground="white",
                 font=(default_font[0], 10, "bold"))
-style.map("Treeview", background=[("selected", ACCENT)])
 
+style.map("Treeview", background=[("selected", ACCENT)])
 
 # =========================
 # Helper para botões tk
 # =========================
 def styled_button(parent, **kwargs):
-    b = tk.Button(parent,
-                  bg=ACCENT,
-                  fg="white",
-                  activebackground=ACCENT_HOVER,
-                  activeforeground="white",
-                  bd=0,
-                  relief="flat",
-                  highlightthickness=0,
-                  font=(default_font[0], 10, "bold"),
-                  **kwargs)
-    return b
-
+    return tk.Button(
+        parent,
+        bg=ACCENT,
+        fg="white",
+        activebackground=ACCENT_HOVER,
+        activeforeground="white",
+        bd=0,
+        relief="flat",
+        highlightthickness=0,
+        font=(default_font[0], 10, "bold"),
+        **kwargs
+    )
 
 # =========================
 # Aba 1: Gerador de Pastas
@@ -125,27 +134,23 @@ class GeradorPastas:
         self._build_ui()
 
     def _build_ui(self):
-        fonte_label = font.Font(family="Helvetica", size=10)
         fonte_texto = font.Font(family="Helvetica", size=10)
-        fonte_botao = font.Font(family="Helvetica", size=11, weight="bold")
 
-        # Header sem logo
         top = ttk.Frame(self.frame, style="Card.TFrame")
         top.pack(fill="x", pady=(0, 8))
 
-         try:
-            caminho_logo = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
-            if os.path.exists(caminho_logo):
-                imagem_logo = Image.open(caminho_logo).resize((64, 64))
+        try:
+            png_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
+            if os.path.exists(png_path):
+                imagem_logo = Image.open(png_path).resize((64, 64))
                 self.logo_tk = ImageTk.PhotoImage(imagem_logo)
-                 ttk.Label(top, image=self.logo_tk, style="Card.TLabel").pack(side="left", padx=(0, 10))
-         except:
+                ttk.Label(top, image=self.logo_tk, style="Card.TLabel").pack(side="left", padx=(0, 10))
+        except:
             pass
 
         ttk.Label(top, text="Gerador de Pastas", style="Card.TLabel",
                   font=(default_font[0], 12, "bold")).pack(side="left")
 
-        # Pasta Base
         ttk.Label(self.frame, text="Pasta base (opcional):", style="Card.TLabel").pack(anchor="w", pady=(6, 2))
         frame_base = ttk.Frame(self.frame, style="Card.TFrame")
         frame_base.pack(fill="x", pady=2)
@@ -156,34 +161,29 @@ class GeradorPastas:
 
         styled_button(frame_base, text="Procurar", command=self.escolher_pasta).pack(side="left", padx=6)
 
-        # Pasta principal
         ttk.Label(self.frame, text="Nome da pasta principal (opcional):",
                   style="Card.TLabel").pack(anchor="w", pady=(8, 2))
         self.entry_pasta_principal = tk.Entry(self.frame, bg=INPUT_BG, fg=TEXT,
                                               insertbackground=TEXT, font=fonte_texto, relief="flat")
         self.entry_pasta_principal.pack(fill="x", pady=2, ipady=6)
 
-        # Nomes
         ttk.Label(self.frame, text="Nomes (um por linha):", style="Card.TLabel").pack(anchor="w", pady=(8, 2))
         self.text_nomes = tk.Text(self.frame, height=4, bg=INPUT_BG, fg=TEXT,
                                   insertbackground=TEXT, bd=0)
         self.text_nomes.pack(fill="x", pady=2)
 
-        # Subpastas gerais
         ttk.Label(self.frame, text="Subpastas gerais (um por linha):",
                   style="Card.TLabel").pack(anchor="w", pady=(8, 2))
         self.text_subpastas_geral = tk.Text(self.frame, height=3, bg=INPUT_BG, fg=TEXT,
                                             insertbackground=TEXT, bd=0)
         self.text_subpastas_geral.pack(fill="x", pady=2)
 
-        # Subpastas secundárias
         ttk.Label(self.frame, text="Subpastas secundárias (um por linha):",
                   style="Card.TLabel").pack(anchor="w", pady=(8, 2))
         self.text_subpastas_secundarias = tk.Text(self.frame, height=3, bg=INPUT_BG, fg=TEXT,
                                                   insertbackground=TEXT, bd=0)
         self.text_subpastas_secundarias.pack(fill="x", pady=2)
 
-        # Botão Criar
         styled_button(self.frame, text="CRIAR PASTAS", command=self.criar_pastas).pack(
             pady=12, ipadx=6, ipady=6
         )
@@ -210,7 +210,6 @@ class GeradorPastas:
             return
 
         pasta_principal = os.path.join(base_path, nome_principal) if nome_principal else base_path
-
         os.makedirs(pasta_principal, exist_ok=True)
 
         for n in nomes:
@@ -227,7 +226,6 @@ class GeradorPastas:
 
         messagebox.showinfo("Sucesso", "Pastas criadas com sucesso!")
 
-
 # =========================
 # MAIN
 # =========================
@@ -239,7 +237,6 @@ if __name__ == "__main__":
     notebook.add(aba1, text="Gerador de Pastas")
     GeradorPastas(aba1)
 
-    # Rodapé
     footer = ttk.Frame(root, style="TFrame")
     footer.pack(fill="x", side="bottom")
     ttk.Label(footer, text="• Interface Dark Mode • Profissional • Mantidas todas funcionalidades",
