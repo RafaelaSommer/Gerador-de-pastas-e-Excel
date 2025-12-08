@@ -3,7 +3,7 @@ import openpyxl
 from openpyxl.styles import Font, Border, Side
 from openpyxl.utils import get_column_letter
 import tkinter as tk
-from tkinter import messagebox, simpledialog
+from tkinter import messagebox, simpledialog, filedialog # <-- IMPORTAÇÃO ADICIONADA AQUI
 from PIL import Image, ImageTk
 
 # ---------------------------- TEMA VISUAL ---------------------------- #
@@ -64,8 +64,8 @@ def criar_grade():
         linha_entradas = []
         for c in range(n_colunas):
             e = tk.Entry(frame_grade, width=18, justify='center',
-                         font=("Segoe UI", 10), bg=INPUT_BG, fg=TEXT,
-                         insertbackground="white", relief="flat")
+                          font=("Segoe UI", 10), bg=INPUT_BG, fg=TEXT,
+                          insertbackground="white", relief="flat")
             e.grid(row=r, column=c, padx=4, pady=4, ipady=6, sticky="nsew")
             if r == 0:
                 e.config(font=("Segoe UI", 10, "bold"), bg="#4b4b4b")
@@ -87,6 +87,8 @@ def ajustar_largura_colunas(ws, dados):
         ws.column_dimensions[get_column_letter(col_idx + 1)].width = min(max_length + 2, 50)
 
 
+# Função 'obter_caminho_desktop' REMOVIDA, pois não é mais necessária com filedialog
+
 def gerar_excel():
     global entradas_celulas
     if not entradas_celulas:
@@ -107,31 +109,18 @@ def gerar_excel():
             linha.append(valor)
         dados.append(linha)
 
-    nome_arquivo = simpledialog.askstring("Nome do arquivo", "Digite o nome do arquivo (sem extensão):")
-    if not nome_arquivo:
+    # AQUI ESTÁ A MUDANÇA PRINCIPAL: Usa a caixa de diálogo para salvar
+    caminho_arquivo = filedialog.asksaveasfilename(
+        defaultextension=".xlsx",
+        filetypes=[("Arquivos Excel", "*.xlsx")],
+        title="Salvar arquivo Excel como...",
+        initialfile="Planilha.xlsx" 
+    )
+
+    if not caminho_arquivo:
+        # Usuário cancelou a operação
         return
-    nome_arquivo = nome_arquivo + ".xlsx"
-
-    # ----------------- AJUSTE PARA SALVAR NA ÁREA DE TRABALHO PÚBLICA OU USUÁRIO ----------------- #
-    # Tenta Desktop Público
-    desktop_publico = os.path.join(os.environ.get("PUBLIC", "C:\\Users\\Public"), "Desktop")
-    if not os.path.exists(desktop_publico):
-        desktop_publico = os.path.join(os.environ.get("PUBLIC", "C:\\Users\\Public"), "Área de Trabalho")
-
-    # Se Desktop Público não existir ou não tiver permissão, usa Desktop do usuário atual
-    if not os.path.exists(desktop_publico) or not os.access(desktop_publico, os.W_OK):
-        home_usuario = os.path.expanduser("~")
-        desktop_usuario = os.path.join(home_usuario, "Desktop")
-        if not os.path.exists(desktop_usuario):
-            desktop_usuario = os.path.join(home_usuario, "Área de Trabalho")
-        desktop_publico = desktop_usuario
-
-    caminho_arquivo = os.path.join(desktop_publico, nome_arquivo)
-    # -------------------------------------------------------------------------- #
-
-    if os.path.exists(caminho_arquivo):
-        if not messagebox.askyesno("Arquivo existe", "Deseja substituir o arquivo?"):
-            return
+    # ---------------------------------------------------------- #
 
     try:
         wb = openpyxl.Workbook()
@@ -167,7 +156,7 @@ root.configure(bg=BG)
 centralizar_janela(root, 520, 360)
 root.resizable(True, True)
 
-# Logo opcional
+# Logo opcional (mantido como estava)
 try:
     caminho_logo = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
     if os.path.exists(caminho_logo):
