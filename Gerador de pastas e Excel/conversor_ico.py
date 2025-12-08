@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from PIL import Image
-import os
 
 SIZES = [16, 32, 48, 64, 128, 256]
 
@@ -32,7 +31,8 @@ def converter():
             copia.thumbnail((tamanho, tamanho), Image.LANCZOS)
             imagens.append(copia)
 
-        imagens[0].save(
+        # ✅ SALVA USANDO A MAIOR IMAGEM COMO BASE
+        imagens[-1].save(
             caminho_saida,
             format="ICO",
             sizes=[(s, s) for s in SIZES]
@@ -48,13 +48,26 @@ janela.title("Conversor de Imagem para ICO")
 janela.geometry("400x200")
 janela.resizable(False, False)
 
-titulo = tk.Label(janela, text="Conversor de Imagem para Ícone (.ICO)", font=("Arial", 12, "bold"))
+titulo = tk.Label(
+    janela, 
+    text="Conversor de Imagem para Ícone (.ICO)", 
+    font=("Arial", 12, "bold")
+)
 titulo.pack(pady=20)
 
-botao = tk.Button(janela, text="Selecionar Imagem e Converter", font=("Arial", 11), command=converter)
+botao = tk.Button(
+    janela, 
+    text="Selecionar Imagem e Converter", 
+    font=("Arial", 11), 
+    command=converter
+)
 botao.pack(pady=30)
 
-rodape = tk.Label(janela, text="Suporta: PNG, JPG, JPEG, BMP, GIF", font=("Arial", 9))
+rodape = tk.Label(
+    janela, 
+    text="Suporta: PNG, JPG, JPEG, BMP, GIF", 
+    font=("Arial", 9)
+)
 rodape.pack(side="bottom", pady=10)
 
 janela.mainloop()
