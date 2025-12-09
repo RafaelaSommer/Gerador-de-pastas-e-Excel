@@ -3,8 +3,9 @@ import openpyxl
 from openpyxl.styles import Font, Border, Side
 from openpyxl.utils import get_column_letter
 import tkinter as tk
-from tkinter import messagebox, simpledialog, filedialog # <-- IMPORTAÇÃO ADICIONADA AQUI
+from tkinter import messagebox, simpledialog
 from PIL import Image, ImageTk
+import ctypes.wintypes  # ← necessário para pegar a Área de Trabalho corretamente
 
 # ---------------------------- TEMA VISUAL ---------------------------- #
 BG = "#1e1e1e"
@@ -34,15 +35,22 @@ def centralizar_janela(janela, largura, altura):
 
 entradas_celulas = []
 
+def get_desktop_path():
+    """
+    Obtém o caminho REAL da Área de Trabalho,
+    independente do idioma do Windows.
+    """
+    buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
+    # CSIDL_DESKTOP = 0x0000
+    ctypes.windll.shell32.SHGetFolderPathW(None, 0x0000, None, 0, buf)
+    return buf.value
+
+
 # ---------------------------- LÓGICA ---------------------------- #
 def criar_grade():
     global entradas_celulas
 
-    if 'frame_grade' not in globals():
-        messagebox.showerror("Erro interno", "frame_grade não encontrado. Reinicie a aplicação.")
-        return
-
-    for widget in frame_grade.winfo_children():
+    for widget in frame_grade_inner.winfo_children():
         widget.destroy()
     entradas_celulas = []
 
@@ -55,26 +63,31 @@ def criar_grade():
         messagebox.showerror("Erro", "Digite números válidos maiores que zero.")
         return
 
-    altura_ajustada = 320 + (n_linhas + 1) * 30
-    if altura_ajustada > 700:
-        altura_ajustada = 700
-    centralizar_janela(root, 900, altura_ajustada)
+    altura_ajustada = 600
+    centralizar_janela(root, 1000, altura_ajustada)
+
+    frame_grade_inner.grid_columnconfigure("all", weight=1)
 
     for r in range(n_linhas + 1):
         linha_entradas = []
         for c in range(n_colunas):
-            e = tk.Entry(frame_grade, width=18, justify='center',
-                          font=("Segoe UI", 10), bg=INPUT_BG, fg=TEXT,
-                          insertbackground="white", relief="flat")
-            e.grid(row=r, column=c, padx=4, pady=4, ipady=6, sticky="nsew")
+            e = tk.Entry(frame_grade_inner, width=22, justify='center',
+                         font=("Segoe UI", 11), bg=INPUT_BG, fg=TEXT,
+                         insertbackground="white", relief="flat")
+            e.grid(row=r, column=c, padx=10, pady=8, ipady=10, sticky="nsew")
+
             if r == 0:
-                e.config(font=("Segoe UI", 10, "bold"), bg="#4b4b4b")
+                e.config(font=("Segoe UI", 11, "bold"), bg="#4b4b4b")
+
             linha_entradas.append(e)
+
         entradas_celulas.append(linha_entradas)
 
     for c in range(n_colunas):
-        frame_grade.grid_columnconfigure(c, weight=1)
+        frame_grade_inner.grid_columnconfigure(c, weight=1)
 
+    frame_grade_inner.update_idletasks()
+    canvas_grade.config(scrollregion=canvas_grade.bbox("all"))
 
 def ajustar_largura_colunas(ws, dados):
     if not dados or not dados[0]:
@@ -85,9 +98,6 @@ def ajustar_largura_colunas(ws, dados):
             if row[col_idx]:
                 max_length = max(max_length, len(str(row[col_idx])))
         ws.column_dimensions[get_column_letter(col_idx + 1)].width = min(max_length + 2, 50)
-
-
-# Função 'obter_caminho_desktop' REMOVIDA, pois não é mais necessária com filedialog
 
 def gerar_excel():
     global entradas_celulas
@@ -109,18 +119,19 @@ def gerar_excel():
             linha.append(valor)
         dados.append(linha)
 
-    # AQUI ESTÁ A MUDANÇA PRINCIPAL: Usa a caixa de diálogo para salvar
-    caminho_arquivo = filedialog.asksaveasfilename(
-        defaultextension=".xlsx",
-        filetypes=[("Arquivos Excel", "*.xlsx")],
-        title="Salvar arquivo Excel como...",
-        initialfile="Planilha.xlsx" 
-    )
-
-    if not caminho_arquivo:
-        # Usuário cancelou a operação
+    nome_arquivo = simpledialog.askstring("Nome do arquivo", "Digite o nome do arquivo (sem extensão):")
+    if not nome_arquivo:
         return
-    # ---------------------------------------------------------- #
+    nome_arquivo = nome_arquivo + ".xlsx"
+
+    # Caminho correto da Área de Trabalho (funciona em qualquer idioma)
+    desktop = get_desktop_path()
+
+    caminho_arquivo = os.path.join(desktop, nome_arquivo)
+
+    if os.path.exists(caminho_arquivo):
+        if not messagebox.askyesno("Arquivo existe", "Deseja substituir o arquivo?"):
+            return
 
     try:
         wb = openpyxl.Workbook()
@@ -149,6 +160,7 @@ def gerar_excel():
 
     messagebox.showinfo("Sucesso", f"Arquivo salvo em:\n{caminho_arquivo}")
 
+
 # ---------------------------- INTERFACE ---------------------------- #
 root = tk.Tk()
 root.title("Gerador de Excel")
@@ -156,7 +168,6 @@ root.configure(bg=BG)
 centralizar_janela(root, 520, 360)
 root.resizable(True, True)
 
-# Logo opcional (mantido como estava)
 try:
     caminho_logo = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
     if os.path.exists(caminho_logo):
@@ -181,7 +192,6 @@ tk.Label(frame_inputs, text="Número de linhas:", bg=CARD, fg=TEXT, font=("Segoe
 entry_linhas = tk.Entry(frame_inputs, width=12, bg=INPUT_BG, fg=TEXT, relief="flat")
 entry_linhas.grid(row=1, column=1, padx=18)
 
-# -------- BOTÕES LADO A LADO -------- #
 frame_botoes = tk.Frame(frame_config, bg=CARD)
 frame_botoes.pack(pady=10)
 
@@ -191,7 +201,23 @@ btn_gerar_grade.pack(side="left", padx=10)
 btn_gerar_excel = styled_button(frame_botoes, "Gerar Excel", gerar_excel)
 btn_gerar_excel.pack(side="left", padx=10)
 
-frame_grade = tk.Frame(root, bg=BG)
-frame_grade.pack(padx=20, pady=10, fill="both", expand=True)
+container_grade = tk.Frame(root, bg=BG)
+container_grade.pack(fill="both", expand=True, padx=20, pady=10)
+
+canvas_grade = tk.Canvas(container_grade, bg=BG, highlightthickness=0)
+canvas_grade.pack(side="left", fill="both", expand=True)
+
+scrollbar = tk.Scrollbar(container_grade, orient="vertical", command=canvas_grade.yview)
+scrollbar.pack(side="right", fill="y")
+
+canvas_grade.configure(yscrollcommand=scrollbar.set)
+
+frame_grade_inner = tk.Frame(canvas_grade, bg=BG)
+canvas_grade.create_window((0, 0), window=frame_grade_inner, anchor="n", width=900)
+
+def atualizar_scroll(event):
+    canvas_grade.configure(scrollregion=canvas_grade.bbox("all"))
+
+frame_grade_inner.bind("<Configure>", atualizar_scroll)
 
 root.mainloop()
