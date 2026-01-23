@@ -67,6 +67,9 @@ def popup_salvar_arquivo(parent):
     popup.configure(bg=CARD)
     popup.resizable(False, False)
 
+    if os.path.exists(LOGO_ICO):
+        popup.iconbitmap(LOGO_ICO)
+
     centralizar_janela(popup, 420, 200)
 
     resultado = {"nome": None}
@@ -118,7 +121,15 @@ def criar_grade():
         messagebox.showerror("Erro", "Digite valores válidos.")
         return
 
-    centralizar_janela(root, 1100, 650)
+    centralizar_janela(root, 980, 620)
+
+    for c in range(cols):
+        frame_grade_inner.grid_columnconfigure(
+            c,
+            weight=100,
+            uniform="colunas",
+            minsize=220
+        )
 
     for r in range(rows + 1):
         linha = []
@@ -127,13 +138,21 @@ def criar_grade():
                 frame_grade_inner,
                 bg=INPUT_BG,
                 fg=TEXT,
-                font=("Segoe UI", 11, "bold" if r == 0 else "normal"),
+                font=("Segoe UI", 12, "bold" if r == 0 else "normal"),
                 justify="center",
                 relief="flat",
-                insertbackground="white",
-                width=18
+                insertbackground="white"
             )
-            e.grid(row=r, column=c, padx=10, pady=6, ipady=6)
+
+            e.grid(
+                row=r,
+                column=c,
+                sticky="nsew",
+                padx=6,
+                pady=6,
+                ipady=10
+            )
+
             linha.append(e)
         entradas_celulas.append(linha)
 
