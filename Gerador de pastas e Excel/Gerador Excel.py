@@ -1,5 +1,5 @@
 import os
-import ctypes  # <<< FALTAVA ISSO
+import ctypes
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
@@ -18,9 +18,7 @@ LOGO_ICO = os.path.join(BASE_DIR, "logo.ico")
 def get_desktop_path():
     CSIDL_DESKTOPDIRECTORY = 0x10
     buf = ctypes.create_unicode_buffer(260)
-    ctypes.windll.shell32.SHGetFolderPathW(
-        None, CSIDL_DESKTOPDIRECTORY, None, 0, buf
-    )
+    ctypes.windll.shell32.SHGetFolderPathW(None, CSIDL_DESKTOPDIRECTORY, None, 0, buf)
     return buf.value
 
 
@@ -104,24 +102,12 @@ def popup_salvar_arquivo(parent):
 
 
 # ============================ GRADE ============================ #
-e = tk.Entry(
-    frame_grade_inner,
-    bg=INPUT_BG,
-    fg=TEXT,
-    font=("Segoe UI", 11, "bold" if r == 0 else "normal"),
-    justify="center",
-    relief="flat",
-    insertbackground="white",
-    width=18   # <<< largura real da célula
-)
-e.grid(
-    row=r,
-    column=c,
-    padx=10,
-    pady=6,
-    ipady=6    # <<< altura confortável
-)
+def criar_grade():
+    global entradas_celulas
+    entradas_celulas.clear()
 
+    for w in frame_grade_inner.winfo_children():
+        w.destroy()
 
     try:
         cols = int(entry_colunas.get())
@@ -145,9 +131,9 @@ e.grid(
                 justify="center",
                 relief="flat",
                 insertbackground="white",
-                width=30
+                width=18
             )
-            e.grid(row=r, column=c, padx=15, pady=10, ipadx=20, ipady=12)
+            e.grid(row=r, column=c, padx=10, pady=6, ipady=6)
             linha.append(e)
         entradas_celulas.append(linha)
 
